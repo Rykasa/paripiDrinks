@@ -7,7 +7,7 @@ export const Container = styled.div`
   border: .2rem solid #5203da;
 `;
 
-export const IconWrap = styled.button`
+export const Button = styled.button`
   position: absolute;
   bottom: .25rem;
   right: -4rem;
@@ -46,7 +46,7 @@ export const ImageWrap = styled.div`
     filter: opacity(.7);
   }
 
-  &:hover ${IconWrap}{
+  &:hover ${Button}{
     right: 0rem;
   }
 `;

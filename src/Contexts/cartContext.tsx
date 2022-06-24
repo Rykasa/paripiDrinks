@@ -8,6 +8,7 @@ interface CartContextProviderProps{
 
 interface CartContextData{
   state: StateType
+  addItemToCart: (name: string) => void
 }
 
 export const CartContext = createContext({} as CartContextData)
@@ -16,23 +17,28 @@ const initialState: StateType = {
   isLoading: false,
   amount: 0,
   total: 0,
-  cocktails: []
+  cocktails: [],
+  cart: [],
 }
 
 export function CartContextProvider({children}: CartContextProviderProps){
   const [state, dispatch] = useReducer(reducer, initialState)
 
-   async function getAllCocktails(){
-    try{
-      dispatch({ type: Actions.LOADING })
-      const response = await fetch(url)
-      const data = await response.json()
-      const { drinks } = data
-      dispatch({ type: Actions.DISPLAY_ITEMS, payload: drinks })
-    }catch(error){
-      console.log(error)
+    function addItemToCart(name: string){
+      dispatch({ type: Actions.ADD_ITEM_TO_CART, payload: name })
     }
-  }
+
+    async function getAllCocktails(){
+      try{
+        dispatch({ type: Actions.LOADING })
+        const response = await fetch(url)
+        const data = await response.json()
+        const { drinks } = data
+        dispatch({ type: Actions.DISPLAY_ITEMS, payload: drinks })
+      }catch(error){
+        console.log(error)
+      }
+    }
 
   useEffect(() =>{
     getAllCocktails()
@@ -40,7 +46,8 @@ export function CartContextProvider({children}: CartContextProviderProps){
 
   return(
     <CartContext.Provider value={{
-      state
+      state,
+      addItemToCart
     }}>
       {children}
     </CartContext.Provider>

@@ -7,8 +7,9 @@ interface Cocktail{
 }
 
 export enum Actions{
-  DISPLAY_ITEMS = 'DISPLAY_ITEMS',
   LOADING = 'LOADING',
+  DISPLAY_ITEMS = 'DISPLAY_ITEMS',
+  ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART'
 }
 
 interface ActionType{
@@ -20,7 +21,8 @@ export interface StateType{
   isLoading: boolean;
   amount: number;
   total: number;
-  cocktails: Cocktail[]
+  cocktails: Cocktail[];
+  cart: Cocktail[];
 }
 
 export function reducer(state: StateType, action: ActionType){
@@ -35,6 +37,11 @@ export function reducer(state: StateType, action: ActionType){
       return {
         ...state,
         isLoading: true,
+      }
+    case Actions.ADD_ITEM_TO_CART:
+      return {
+        ...state,
+        cart: [...state.cart, payload]
       }
     default:
       throw new Error('no match')

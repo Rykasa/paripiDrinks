@@ -1,5 +1,6 @@
 import * as C from './styles'
-import { FaShoppingBag, FaShoppingCart } from 'react-icons/fa'
+import { FaShoppingCart } from 'react-icons/fa'
+import { useCart } from '../../hooks/useCartContext';
 
 interface CocktailProps{
   item: {
@@ -10,6 +11,7 @@ interface CocktailProps{
 }
 
 export function Cocktail({ item }: CocktailProps){
+  const { state } = useCart()
   const { idDrink: id, strDrink: title, strDrinkThumb: url } = item
   const priceLeft = id?.slice(0, 4).substring(0, 2)
   const priceRight = id?.slice(0, 4).substring(2, 4)
@@ -17,9 +19,12 @@ export function Cocktail({ item }: CocktailProps){
   return(
     <C.Container>
       <C.ImageWrap>
-        <C.IconWrap>
+        <C.Button 
+          type="button"
+          
+        >
           <FaShoppingCart className="cart-icon" />
-        </C.IconWrap>
+        </C.Button>
         <C.Image src={url} alt={title} />
       </C.ImageWrap>
       <C.InfoDiv className="info">
