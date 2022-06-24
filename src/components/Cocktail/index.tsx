@@ -11,8 +11,8 @@ interface CocktailProps{
 
 export function Cocktail({ item }: CocktailProps){
   const { idDrink: id, strDrink: title, strDrinkThumb: url } = item
-  const priceLeft = id.slice(0, 4).substring(0, 2)
-  const priceRight = id.slice(0, 4).substring(2, 4)
+  const priceLeft = id?.slice(0, 4).substring(0, 2)
+  const priceRight = id?.slice(0, 4).substring(2, 4)
   const fakePrice = `${priceLeft}.${priceRight}`
   return(
     <C.Container>
