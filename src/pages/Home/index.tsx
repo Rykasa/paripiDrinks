@@ -21,17 +21,15 @@ export function Home(){
   }, [])
   return(
     <C.Container>
-      <C.Heading>Home</C.Heading>
       <C.Main>
         <C.MainCenter className="center">
-          <C.Form>
-            <C.Input type="text" />
-          </C.Form>
+          <C.Heading>Let's <strong>party</strong></C.Heading>
+          <C.SubHeading>All your favorite cocktails</C.SubHeading>
           <C.CocktailsDiv className="cocktails-container">
               {list.map((item) =>{
                 const { idDrink, strDrink, strDrinkThumb } = item
                 return(
-                  <Cocktail item={ {idDrink, strDrink, strDrinkThumb} } />
+                  <Cocktail key={idDrink} item={ {idDrink, strDrink, strDrinkThumb} } />
                 )
               })}
           </C.CocktailsDiv>

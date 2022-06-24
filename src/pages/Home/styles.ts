@@ -13,6 +13,20 @@ export const Heading = styled.h1`
   letter-spacing: .1rem;
   font-size: 2.5rem;
   font-weight: 400;
+  color: #fff;
+
+  strong{
+    color: #f4c762;
+  }
+`;
+
+export const SubHeading = styled.span`
+  display: block;
+  text-align: center;
+  color: #fff;
+  text-transform: capitalize;
+  letter-spacing: .2rem;
+  margin-top: 1rem;
 `;
 
 export const Main = styled.main`
@@ -25,19 +39,10 @@ export const MainCenter = styled.div`
   max-width: 900px;
 `;
 
-export const Form = styled.form`
-  width: 100%;
-  background-color: blueviolet;
-  margin-block: 2rem;
-  padding: 1rem;
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  height: 2rem;
-`;
-
 export const CocktailsDiv = styled.div`
+  border-top: .5rem solid #5203da;
+  padding-top: 2rem;
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: 1rem;
