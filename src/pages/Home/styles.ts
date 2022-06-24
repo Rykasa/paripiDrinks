@@ -4,6 +4,7 @@ export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 2rem 0;
+  background-color: #272727;
 `;
 
 export const Heading = styled.h1`
@@ -38,6 +39,6 @@ export const Input = styled.input`
 
 export const CocktailsDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: 1rem;
 `;
