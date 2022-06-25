@@ -4,7 +4,15 @@ import { Loading } from "../../components/Loading"
 import { useCart } from "../../hooks/useCartContext"
 import * as C from './styles'
 export function Home(){
-  const { state, getTotal } = useCart()
+  const { state, getTotal, getAllCocktails } = useCart()
+
+  useEffect(() =>{
+    try {
+      getAllCocktails()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   useEffect(() =>{
     if(state){
@@ -20,7 +28,7 @@ export function Home(){
           <C.SubHeading>All your favorite cocktails</C.SubHeading>
           <C.CocktailsDiv className="cocktails-container">
             {state?.isLoading && <Loading />}
-            {state?.cocktails.length > 0 && (
+            {state?.cocktails.length > 0 && !state.isLoading && (
               state.cocktails.map((cocktail) =>{
                 const { idDrink, strDrink, strDrinkThumb } = cocktail
                 return(

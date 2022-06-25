@@ -8,6 +8,7 @@ interface CartContextProviderProps{
 
 interface CartContextData{
   state: StateType
+  getAllCocktails: () => void
   getTotal: () => void
   addItemToCart: (item: Cocktail) => void
   removeItemFromCart: (id: string) => void
@@ -44,26 +45,25 @@ export function CartContextProvider({children}: CartContextProviderProps){
   }
 
   async function getAllCocktails(){
-    
     dispatch({ type: Actions.LOADING })
     const response = await fetch(url)
     const data = await response.json()
     const { drinks } = data
     dispatch({ type: Actions.DISPLAY_ITEMS, payload: drinks })
-    
   }
 
-  useEffect(() =>{
-    getAllCocktails()
-  }, [])
+  // useEffect(() =>{
+  //   getAllCocktails()
+  // }, [])
 
   return(
     <CartContext.Provider value={{
       state,
+      getAllCocktails,
       getTotal,
       addItemToCart,
       removeItemFromCart,
-      changeItemAmount
+      changeItemAmount,
     }}>
       {children}
     </CartContext.Provider>
