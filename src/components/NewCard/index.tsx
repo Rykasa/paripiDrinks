@@ -40,7 +40,9 @@ export function NewCard(){
               <C.Input 
                 type="text" 
                 name="card-number-field" 
+                maxLength={16}
                 value={number}
+                pattern='/^a/'
                 onChange={e => setNumber(e.target.value)}
               />
             </C.Label>
@@ -49,6 +51,7 @@ export function NewCard(){
               <C.Input 
                 type="text" 
                 name="cardholder-field" 
+                maxLength={25}
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
@@ -89,7 +92,7 @@ export function NewCard(){
               </C.Label>
               <C.Label htmlFor="cvv-field">
                 <C.LabelTitle>CVV</C.LabelTitle>
-                <C.Input type="password" name="cvv-field" autoComplete='off' maxLength={4} />
+                <C.Input type="password" name="cvv-field" autoComplete='off' maxLength={3} />
               </C.Label>
             </C.DateInfo>
             <C.Button type="button">Done</C.Button>

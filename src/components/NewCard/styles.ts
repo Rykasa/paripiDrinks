@@ -45,7 +45,7 @@ export const Card = styled.div`
   display: flex;
   justify-content: center;
   background-color: #373737;
-  padding: 2rem 0;
+  padding: 2rem 1rem;;
   border-radius: .25rem;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;

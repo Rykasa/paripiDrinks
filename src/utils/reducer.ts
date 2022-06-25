@@ -25,6 +25,7 @@ export enum Actions{
   CHANGE_AMOUNT = 'CHANGE_AMOUNT',
   CHECK_DUPLICATE = 'CHECK_DUPLICATE',
   TOGGLE_MODAL = 'TOGGLE_MODAL',
+  ADD_CARD = 'ADD_CARD'
 }
 
 interface ActionType{
@@ -131,6 +132,12 @@ export function reducer(state: StateType, action: ActionType){
       return {
         ...state,
         cart: tempCart  
+      }
+
+    case Actions.ADD_CARD:
+      return {
+        ...state,
+        cards: [...state.cards, payload]
       }
       
     default:

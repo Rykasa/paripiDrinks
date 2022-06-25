@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react';
-import { FaCcMastercard, FaCcVisa } from 'react-icons/fa'
+import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { FaCcAmex, FaCcDinersClub, FaCcDiscover, FaCcJcb, FaCcMastercard, FaCcVisa, FaEllo } from 'react-icons/fa'
 import { Card } from '../../utils/reducer'
 import * as C from './styles'
 
@@ -9,42 +9,84 @@ interface creditCardProps{
 
 const CARDS = {
   visa: '^4',
-  mastercard: '^5[1-5]', //first digit 5 , 2nd digit from 1-5 ..
-  discover: '^6011',
+  mastercard: '^5[1-5]',
+  discover: '^6011|65',
   unionpay: '^62',
+  dinersClub: '^3[6|8]',
+  jcb: '^35',
+  amex: '^34|37',
 };
+
+type cardtype = {
+  type: string
+  icon: ReactNode
+}
+
+const CardIcon: cardtype[] = [
+  {
+    type: 'visa',
+    icon: <FaCcVisa />
+  },
+  {
+    type: 'mastercard',
+    icon: <FaCcMastercard />
+  },
+  {
+    type: 'dinersClub',
+    icon: <FaCcDinersClub />
+  },
+  {
+    type: 'discover',
+    icon: <FaCcDiscover />
+  },
+  {
+    type: 'jcb',
+    icon: <FaCcJcb />
+  },
+  {
+    type: 'amex',
+    icon: <FaCcAmex />
+  },
+  {
+    type: 'Elo',
+    icon: <FaEllo />
+  },
+]
 
 export function CreditCard({ item }: creditCardProps){
   const { cardNumber, cardholder, cvv, month, year, logo } = item
+  const [especificCardType, setEspecificCardType] = useState('')
 
-   const cardType = (cardNumber: string) => {
-    const number = cardNumber;
-    let re;
+   function checkCardType(cardNumber: string){
+    let re
     for (const [card, pattern] of Object.entries(CARDS)) {
       re = new RegExp(pattern);
-      if (number.match(re) != null) {
-        console.log(card)
+      if (cardNumber.match(re) != null) {
         return card;
       }
     }
-
     return 'visa'; // default type
   };
 
-  const useCardType = useMemo(() => {
-    return cardType(cardNumber);
+  useEffect(() => {
+   setEspecificCardType(checkCardType(cardNumber));
   }, [cardNumber]);
 
-  console.log(useCardType)
+  const especificIcon = CardIcon.filter((item) => item.type === especificCardType)
+
+  const randomcarholder = 'kaguya mikasa kotori'
+  console.log(randomcarholder.split(' ').splice(0, 2))
 
   return(
     <C.container>
       <C.Logo>
-        <FaCcMastercard />
+        {especificIcon[0]?.icon}
       </C.Logo>
-      <C.Number>{cardNumber}</C.Number>
+      <C.Number>
+        {cardNumber.split('', 4).slice(0, 4).join('') + ' ' + cardNumber.split('', 8).slice(4, 8).join('') + ' ' + cardNumber.split('', 12).slice(8, 12).join('') + ' ' + cardNumber.split('', 16).slice(12, 16).join('') }
+      </C.Number>
       <C.InfoDiv>
-        <C.Holder>{cardholder}</C.Holder>
+        <C.Holder>{cardholder.split(' ').splice(0, 2).join(' ')}</C.Holder>
         <C.ExpiryDate>{month && month + '/'}{year.slice(2, 4)}</C.ExpiryDate>
       </C.InfoDiv>
     </C.container>
