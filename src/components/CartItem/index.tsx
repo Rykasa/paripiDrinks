@@ -1,16 +1,28 @@
 import { Minus, Plus, X } from 'phosphor-react'
+import { Cocktail } from '../../utils/reducer'
 import * as C from './styles'
 
-export function CartItem(){
+interface CartItemProps{
+  item: Cocktail;
+}
+
+export function CartItem({ item }: CartItemProps){
+  const { 
+    idDrink: id, 
+    strDrink: title, 
+    strDrinkThumb: url, 
+    amount, 
+    price 
+  } = item
   return(
     <C.Item>
       <C.ImageWrap>
-        <C.Image src="" alt="" />
+        <C.Image src={url} alt={title} />
       </C.ImageWrap>
       <C.ItemInfo>
-        <C.Title>item 1</C.Title>
-        <C.Amount>2</C.Amount>
-        <C.Price>$ 17.32</C.Price>
+        <C.Title>{title}</C.Title>
+        <C.Amount>{amount}</C.Amount>
+        <C.Price>$ {price}</C.Price>
       </C.ItemInfo>
       <C.ButtonsWrap>
         <C.CloseButton>

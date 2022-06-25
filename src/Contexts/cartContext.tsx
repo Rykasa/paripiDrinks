@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useReducer } from "react";
-import { Actions, reducer, StateType } from "../utils/reducer";
+import { Actions, Cocktail, reducer, StateType } from "../utils/reducer";
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 
 interface CartContextProviderProps{
@@ -8,7 +8,8 @@ interface CartContextProviderProps{
 
 interface CartContextData{
   state: StateType
-  addItemToCart: (name: string) => void
+  addItemToCart: (item: Cocktail) => void
+  getTotal: () => void
 }
 
 export const CartContext = createContext({} as CartContextData)
@@ -24,8 +25,12 @@ const initialState: StateType = {
 export function CartContextProvider({children}: CartContextProviderProps){
   const [state, dispatch] = useReducer(reducer, initialState)
 
-    function addItemToCart(name: string){
-      dispatch({ type: Actions.ADD_ITEM_TO_CART, payload: name })
+    function addItemToCart(item: Cocktail){
+      dispatch({ type: Actions.ADD_ITEM_TO_CART, payload: item })
+    }
+
+    function getTotal(){
+      dispatch({ type: Actions.GET_TOTAL })
     }
 
     async function getAllCocktails(){
@@ -47,7 +52,8 @@ export function CartContextProvider({children}: CartContextProviderProps){
   return(
     <CartContext.Provider value={{
       state,
-      addItemToCart
+      addItemToCart,
+      getTotal
     }}>
       {children}
     </CartContext.Provider>

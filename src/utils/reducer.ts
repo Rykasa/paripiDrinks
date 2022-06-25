@@ -1,4 +1,4 @@
-interface Cocktail{
+export interface Cocktail{
   idDrink: string;
   strDrink: string;
   price?: string;
@@ -9,7 +9,8 @@ interface Cocktail{
 export enum Actions{
   LOADING = 'LOADING',
   DISPLAY_ITEMS = 'DISPLAY_ITEMS',
-  ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART'
+  ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART',
+  GET_TOTAL = 'GET_TOTAL',
 }
 
 interface ActionType{
@@ -42,6 +43,25 @@ export function reducer(state: StateType, action: ActionType){
       return {
         ...state,
         cart: [...state.cart, payload]
+      }
+    case Actions.GET_TOTAL:
+      let { total, amount}  = state.cart.reduce((cartTotal, cartItem) =>{
+        const { price, amount } = cartItem
+        if(price && amount){
+          const parsedPrice = parseFloat(price)
+          const itemTotal = parsedPrice * amount
+
+          cartTotal.total += itemTotal
+          cartTotal.amount += amount
+          return cartTotal
+        }
+        return cartTotal
+      }, { total: 0, amount: 0 })
+      total = parseFloat(total.toFixed(2))
+      return {
+        ...state,
+        total,
+        amount,
       }
     default:
       throw new Error('no match')

@@ -1,10 +1,12 @@
 import { BagSimple } from 'phosphor-react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useCart } from '../../hooks/useCartContext'
 import * as C from './styles'
 
 export function Navbar(){
   const navigate = useNavigate()
-
+  const { state } = useCart()
+  
   function handleClick(){
     navigate('/cart')
   }
@@ -19,7 +21,11 @@ export function Navbar(){
           type="button"
           onClick={handleClick}
         >
-          <span>12</span>
+          {state ? (
+            <span>{state.amount}</span>
+          ) : (
+            <span>0</span>
+          )}
           <BagSimple size={30} />
         </C.Button>
       </C.NavCenter>

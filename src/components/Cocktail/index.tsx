@@ -11,7 +11,7 @@ interface CocktailProps{
 }
 
 export function Cocktail({ item }: CocktailProps){
-  const { state } = useCart()
+  const { state, addItemToCart } = useCart()
   const { idDrink: id, strDrink: title, strDrinkThumb: url } = item
   const priceLeft = id?.slice(0, 4).substring(0, 2)
   const priceRight = id?.slice(0, 4).substring(2, 4)
@@ -21,7 +21,7 @@ export function Cocktail({ item }: CocktailProps){
       <C.ImageWrap>
         <C.Button 
           type="button"
-          
+          onClick={() => addItemToCart({...item, amount: 1, price: fakePrice})}
         >
           <FaShoppingCart className="cart-icon" />
         </C.Button>

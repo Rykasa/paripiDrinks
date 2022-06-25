@@ -1,9 +1,17 @@
+import { useEffect } from "react"
 import { Cocktail } from "../../components/Cocktail"
 import { Loading } from "../../components/Loading"
 import { useCart } from "../../hooks/useCartContext"
 import * as C from './styles'
 export function Home(){
-  const { state } = useCart()
+  const { state, getTotal } = useCart()
+
+  useEffect(() =>{
+    if(state){
+      getTotal()
+    }
+  }, [state.cart])
+
   return(
     <C.Container>
       <C.Main>
