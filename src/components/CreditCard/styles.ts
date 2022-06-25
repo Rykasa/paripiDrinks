@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const container = styled.div`
-  background-color: aqua;
+  background-color: #5203da;
   padding: 1rem;
   width: 70%;
   border-radius: .25rem;
+
+  border: .2rem solid #f4c762;
 `;
 
 export const Logo = styled.div`
@@ -22,6 +24,7 @@ export const InfoDiv = styled.div`
   justify-content: space-between;
 `;
 
-export const Holder = styled.span``;
+export const Holder = styled.span`
+`;
 
 export const ExpiryDate = styled.span``;

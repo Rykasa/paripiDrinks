@@ -22,6 +22,10 @@ export const Center = styled.div`
   width: 90vw;
   margin: auto;
   max-width: 900px;
+
+  .slider{
+    margin-bottom: 1rem;
+  }
 `;
 
 export const Title = styled.span`
@@ -31,9 +35,7 @@ export const Title = styled.span`
   letter-spacing: .1rem;
 `;
 
-export const CardWrapper = styled.div`
-  margin-bottom: 1rem;
-`;
+export const CardWrapper = styled.div``;
 
 export const AddButton = styled.button`
   display: flex;
