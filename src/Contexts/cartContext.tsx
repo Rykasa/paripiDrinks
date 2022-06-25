@@ -52,9 +52,9 @@ export function CartContextProvider({children}: CartContextProviderProps){
     dispatch({ type: Actions.DISPLAY_ITEMS, payload: drinks })
   }
 
-  // useEffect(() =>{
-  //   getAllCocktails()
-  // }, [])
+  useEffect(() =>{
+    getAllCocktails()
+  }, [])
 
   return(
     <CartContext.Provider value={{

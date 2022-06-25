@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { CartItem } from '../../components/CartItem'
 import { useCart } from '../../hooks/useCartContext'
 import * as C from './styles'
@@ -37,7 +38,9 @@ export function Cart(){
               <C.InfoTotal><span>$</span> 0</C.InfoTotal>
             )}
           </C.InfoDiv>
-          <C.Button>proceed to payment</C.Button>
+          <Link to='/payment'>
+            <C.Button>proceed to payment</C.Button>
+          </Link>
         </C.MainCenter>
       </C.Main>
     </C.Container>

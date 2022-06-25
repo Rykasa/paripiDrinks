@@ -4,15 +4,7 @@ import { Loading } from "../../components/Loading"
 import { useCart } from "../../hooks/useCartContext"
 import * as C from './styles'
 export function Home(){
-  const { state, getTotal, getAllCocktails } = useCart()
-
-  useEffect(() =>{
-    try {
-      getAllCocktails()
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
+  const { state, getTotal } = useCart()
 
   useEffect(() =>{
     if(state){
