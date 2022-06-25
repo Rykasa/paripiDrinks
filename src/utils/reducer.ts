@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface Cocktail{
   idDrink: string;
   strDrink: string;
@@ -22,11 +24,21 @@ export enum Actions{
   REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART',
   CHANGE_AMOUNT = 'CHANGE_AMOUNT',
   CHECK_DUPLICATE = 'CHECK_DUPLICATE',
+  TOGGLE_MODAL = 'TOGGLE_MODAL',
 }
 
 interface ActionType{
   type: Actions;
   payload?: any;
+}
+
+export interface Card{
+  logo?: ReactNode;
+  cardNumber: string;
+  cardholder: string;
+  month: string;
+  year: string;
+  cvv: string;
 }
 
 export interface StateType{
@@ -35,6 +47,8 @@ export interface StateType{
   total: number;
   cocktails: Cocktail[];
   cart: Cart[];
+  isModalOpen: boolean;
+  cards: Card[];
 }
 
 export function reducer(state: StateType, action: ActionType){
@@ -50,6 +64,8 @@ export function reducer(state: StateType, action: ActionType){
         ...state,
         isLoading: true,
       }
+    case Actions.TOGGLE_MODAL:
+      return { ...state, isModalOpen: !payload }
     case Actions.ADD_ITEM_TO_CART:
       const duplicatedItem = state.cart.find((item) => item.idDrink === payload.idDrink )
       if(duplicatedItem){

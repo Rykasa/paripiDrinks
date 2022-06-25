@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
 import { Cart } from './pages/Cart'
 import { Home } from './pages/Home'
-import { Order } from './pages/Order'
 import { Payment } from './pages/Payment'
 
 export function App(){

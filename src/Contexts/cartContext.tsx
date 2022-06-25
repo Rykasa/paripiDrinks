@@ -10,6 +10,7 @@ interface CartContextData{
   state: StateType
   getAllCocktails: () => void
   getTotal: () => void
+  toggleModal: () => void
   addItemToCart: (item: Cocktail) => void
   removeItemFromCart: (id: string) => void
   changeItemAmount: (id: string, type: string) => void
@@ -23,6 +24,8 @@ const initialState: StateType = {
   total: 0,
   cocktails: [],
   cart: [],
+  isModalOpen: false,
+  cards: []
 }
 
 export function CartContextProvider({children}: CartContextProviderProps){
@@ -42,6 +45,10 @@ export function CartContextProvider({children}: CartContextProviderProps){
 
   function changeItemAmount(id: string, type: string){
     dispatch({ type: Actions.CHANGE_AMOUNT, payload: { id, type } })
+  }
+
+  function toggleModal(){
+    dispatch({ type: Actions.TOGGLE_MODAL, payload: state.isModalOpen })
   }
 
   async function getAllCocktails(){
@@ -64,6 +71,7 @@ export function CartContextProvider({children}: CartContextProviderProps){
       addItemToCart,
       removeItemFromCart,
       changeItemAmount,
+      toggleModal,
     }}>
       {children}
     </CartContext.Provider>

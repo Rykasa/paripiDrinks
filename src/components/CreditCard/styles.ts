@@ -5,8 +5,10 @@ export const container = styled.div`
   padding: 1rem;
   width: 70%;
   border-radius: .25rem;
-
+  
   border: .2rem solid #f4c762;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Logo = styled.div`
@@ -15,6 +17,7 @@ export const Logo = styled.div`
 
 export const Number = styled.strong`
   letter-spacing: .1rem;
+  height: 1rem;
 `;
 
 export const InfoDiv = styled.div`
@@ -27,4 +30,7 @@ export const InfoDiv = styled.div`
 export const Holder = styled.span`
 `;
 
-export const ExpiryDate = styled.span``;
+export const ExpiryDate = styled.span`
+  width: 2.5rem;
+  height: 1.5rem;  
+`;
