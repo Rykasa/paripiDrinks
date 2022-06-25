@@ -1,4 +1,5 @@
 import { Minus, Plus, X } from 'phosphor-react'
+import { useCart } from '../../hooks/useCartContext';
 import { Cocktail } from '../../utils/reducer'
 import * as C from './styles'
 
@@ -14,6 +15,9 @@ export function CartItem({ item }: CartItemProps){
     amount, 
     price 
   } = item
+
+  const { removeItemFromCart } = useCart()
+
   return(
     <C.Item>
       <C.ImageWrap>
@@ -25,9 +29,12 @@ export function CartItem({ item }: CartItemProps){
         <C.Price>$ {price}</C.Price>
       </C.ItemInfo>
       <C.ButtonsWrap>
-        <C.CloseButton>
+        <C.RemoveButton
+          type="button"
+          onClick={() => removeItemFromCart(id)}
+        >
           <X />
-        </C.CloseButton>
+        </C.RemoveButton>
         <C.IncreaseButton>
           <Plus />
         </C.IncreaseButton>

@@ -11,6 +11,7 @@ export enum Actions{
   DISPLAY_ITEMS = 'DISPLAY_ITEMS',
   ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART',
   GET_TOTAL = 'GET_TOTAL',
+  REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART',
 }
 
 interface ActionType{
@@ -62,6 +63,12 @@ export function reducer(state: StateType, action: ActionType){
         ...state,
         total,
         amount,
+      }
+    case Actions.REMOVE_ITEM_FROM_CART:
+      const newCart = state.cart.filter((item) => item.idDrink !== payload)
+      return {
+        ...state,
+        cart: newCart
       }
     default:
       throw new Error('no match')

@@ -8,8 +8,9 @@ interface CartContextProviderProps{
 
 interface CartContextData{
   state: StateType
-  addItemToCart: (item: Cocktail) => void
   getTotal: () => void
+  addItemToCart: (item: Cocktail) => void
+  removeItemFromCart: (id: string) => void
 }
 
 export const CartContext = createContext({} as CartContextData)
@@ -33,6 +34,10 @@ export function CartContextProvider({children}: CartContextProviderProps){
       dispatch({ type: Actions.GET_TOTAL })
     }
 
+    function removeItemFromCart(id: string){
+      dispatch({ type: Actions.REMOVE_ITEM_FROM_CART, payload: id })
+    }
+
     async function getAllCocktails(){
       try{
         dispatch({ type: Actions.LOADING })
@@ -52,8 +57,9 @@ export function CartContextProvider({children}: CartContextProviderProps){
   return(
     <CartContext.Provider value={{
       state,
+      getTotal,
       addItemToCart,
-      getTotal
+      removeItemFromCart
     }}>
       {children}
     </CartContext.Provider>

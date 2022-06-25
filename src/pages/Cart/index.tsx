@@ -6,18 +6,28 @@ import * as C from './styles'
 export function Cart(){
   const { state, getTotal } = useCart()
 
+  useEffect(() =>{
+    if(state){
+      getTotal()
+    }
+  }, [state.cart])
+
   return(
     <C.Container>
       <C.Main>
         <C.MainCenter>
           <C.Heading>Your Bag</C.Heading>
           <C.List>
-            {state?.cart.map((item) =>{
-              const { idDrink } = item
-              return(
-                <CartItem key={idDrink} item={item} />
-              )
-            })}
+            {state?.cart.length > 0 ? (
+              state.cart.map((item) =>{
+                const { idDrink } = item
+                return(
+                  <CartItem key={idDrink} item={item} />
+                )
+              })
+            ) : (
+              <C.EmptyTitle>Empty list</C.EmptyTitle>
+            )}
           </C.List>
           <C.InfoDiv>
             <C.InfoTitle>Total</C.InfoTitle>

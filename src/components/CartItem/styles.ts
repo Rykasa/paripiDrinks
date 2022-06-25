@@ -58,7 +58,7 @@ export const ButtonsWrap = styled.div`
   padding: .5rem;
 `;
 
-export const CloseButton = styled.button`
+export const RemoveButton = styled.button`
   position: absolute;
   top: 0;
   right: 0;

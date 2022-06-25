@@ -36,6 +36,16 @@ export const List = styled.ul`
   list-style-type: none;
 `;
 
+export const EmptyTitle = styled.span`
+  text-align: center;
+  display: block;
+  margin-bottom: 2rem;
+  text-transform: capitalize;
+  font-size: 1rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+`;
+
 export const InfoDiv = styled.div`
   display: flex;
   align-items: center;
