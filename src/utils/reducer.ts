@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Item } from "../components/CartItem/styles";
 
 export interface Cocktail{
   idDrink: string;
@@ -25,7 +26,8 @@ export enum Actions{
   CHANGE_AMOUNT = 'CHANGE_AMOUNT',
   CHECK_DUPLICATE = 'CHECK_DUPLICATE',
   TOGGLE_MODAL = 'TOGGLE_MODAL',
-  ADD_CARD = 'ADD_CARD'
+  ADD_CARD = 'ADD_CARD',
+  SELECT_CARD = 'SELECT_CARD'
 }
 
 interface ActionType{
@@ -40,6 +42,7 @@ export interface Card{
   month: string;
   year: string;
   cvv: string;
+  isSelected: boolean;
 }
 
 export interface StateType{
@@ -140,6 +143,18 @@ export function reducer(state: StateType, action: ActionType){
         cards: [...state.cards, payload]
       }
       
+    case Actions.SELECT_CARD:
+      console.log('works')
+      const tempCards = state.cards.map((card, index) =>{
+        if(index === payload){
+          return {...card, isSelected: card.isSelected = true }
+        }
+        return {...card, isSelected: card.isSelected = false}
+      })
+      return {
+        ...state,
+        cards: tempCards
+      }
     default:
       throw new Error('no match')
   }

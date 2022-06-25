@@ -8,8 +8,12 @@ import { NewCard } from "../../components/NewCard";
 import { useCart } from "../../hooks/useCartContext";
 
 export function Payment(){
-  // const [isModalOpen, setIsModalOpen] = useState(true)
   const {state, toggleModal} = useCart()
+
+  function handle(){
+
+  }
+
   return(
     <C.Container>
       {state?.isModalOpen && <NewCard />}
@@ -24,13 +28,19 @@ export function Payment(){
             className="slider"
           >
             <C.CardWrapper>
-              <SwiperSlide>
-                {/* <CreditCard /> */}
-              </SwiperSlide>
+              {state.cards.map((card, index) =>{
+                return(
+                  <SwiperSlide key={index}>
+                    <CreditCard item={card} id={index} />
+                  </SwiperSlide>
+                )
+              })}
             </C.CardWrapper>
           </Swiper>
         ) : (
-          <span>No cards registered</span>
+          <C.EmptyDiv>
+            <C.emptyTitle>No card registered</C.emptyTitle>
+          </C.EmptyDiv>
         )}
         <C.AddButton
           type="button"

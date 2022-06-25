@@ -74,3 +74,13 @@ export const PayButton = styled.button`
     box-shadow: 0 0 0 1rem inset #272727;
   }
 `;
+
+export const EmptyDiv = styled.div`
+  border: .1rem solid #fff;
+  margin-bottom: 1rem;
+  padding: 1rem;
+`;
+
+export const emptyTitle = styled.span`
+  letter-spacing: .1rem;
+`;

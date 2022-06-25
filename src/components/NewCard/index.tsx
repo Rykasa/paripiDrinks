@@ -12,7 +12,7 @@ const currentYear = new Date().getFullYear()
 const yearsArray = Array.from({ length: 12 }, (x, i) => currentYear + i)
 
 export function NewCard(){
-  const { toggleModal } = useCart()
+  const { toggleModal, addCardToList } = useCart()
 
   const [number, setNumber] = useState('')
   const [name, setName] = useState('')
@@ -92,10 +92,21 @@ export function NewCard(){
               </C.Label>
               <C.Label htmlFor="cvv-field">
                 <C.LabelTitle>CVV</C.LabelTitle>
-                <C.Input type="password" name="cvv-field" autoComplete='off' maxLength={3} />
+                <C.Input 
+                  type="password" 
+                  name="cvv-field" 
+                  autoComplete='off' 
+                  maxLength={3} 
+                  value={cvv}
+                  onChange={e => setCvv(e.target.value)}
+                />
               </C.Label>
             </C.DateInfo>
-            <C.Button type="button">Done</C.Button>
+            <C.Button 
+              type="button"
+              onClick={() => addCardToList({ cardNumber: number, cardholder: name, year, month, cvv })}
+            >
+              Done</C.Button>
           </C.Form>
         </C.CardInfo>
       </C.Center>

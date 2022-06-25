@@ -1,10 +1,12 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
-import { FaCcAmex, FaCcDinersClub, FaCcDiscover, FaCcJcb, FaCcMastercard, FaCcVisa, FaEllo } from 'react-icons/fa'
+import { ReactNode, useEffect, useState } from 'react';
+import { FaCcAmex, FaCcDinersClub, FaCcDiscover, FaCcJcb, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
+import { useCart } from '../../hooks/useCartContext';
 import { Card } from '../../utils/reducer'
 import * as C from './styles'
 
 interface creditCardProps{
   item: Card;
+  id: number;
 }
 
 const CARDS = {
@@ -47,15 +49,12 @@ const CardIcon: cardtype[] = [
     type: 'amex',
     icon: <FaCcAmex />
   },
-  {
-    type: 'Elo',
-    icon: <FaEllo />
-  },
 ]
 
-export function CreditCard({ item }: creditCardProps){
-  const { cardNumber, cardholder, cvv, month, year, logo } = item
+export function CreditCard({ item, id }: creditCardProps){
+  const { cardNumber, cardholder, cvv, month, year, isSelected } = item
   const [especificCardType, setEspecificCardType] = useState('')
+  const { selectCard, state } = useCart()
 
    function checkCardType(cardNumber: string){
     let re
@@ -74,11 +73,8 @@ export function CreditCard({ item }: creditCardProps){
 
   const especificIcon = CardIcon.filter((item) => item.type === especificCardType)
 
-  const randomcarholder = 'kaguya mikasa kotori'
-  console.log(randomcarholder.split(' ').splice(0, 2))
-
   return(
-    <C.container>
+    <C.container onClick={() => selectCard(id)} isSelected={isSelected}>
       <C.Logo>
         {especificIcon[0]?.icon}
       </C.Logo>

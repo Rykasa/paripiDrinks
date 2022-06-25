@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-export const container = styled.div`
+export const container = styled.div<{isSelected: boolean}>`
   background-color: #5203da;
   padding: 1rem;
   width: 70%;
   border-radius: .25rem;
-  
-  border: .2rem solid #f4c762;
+  border: ${({isSelected}) => isSelected ? '.2rem solid #f4c762' : '.2rem solid #5203da'};
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `;
 
 export const Logo = styled.div`

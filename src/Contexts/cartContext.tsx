@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useReducer } from "react";
-import { Actions, Cocktail, reducer, StateType } from "../utils/reducer";
+import { Actions, Card, Cocktail, reducer, StateType } from "../utils/reducer";
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 
 interface CartContextProviderProps{
@@ -14,6 +14,8 @@ interface CartContextData{
   addItemToCart: (item: Cocktail) => void
   removeItemFromCart: (id: string) => void
   changeItemAmount: (id: string, type: string) => void
+  addCardToList: (card: Card) => void
+  selectCard: (id: number) => void
 }
 
 export const CartContext = createContext({} as CartContextData)
@@ -25,7 +27,7 @@ const initialState: StateType = {
   cocktails: [],
   cart: [],
   isModalOpen: false,
-  cards: []
+  cards: [],
 }
 
 export function CartContextProvider({children}: CartContextProviderProps){
@@ -63,6 +65,15 @@ export function CartContextProvider({children}: CartContextProviderProps){
     getAllCocktails()
   }, [])
 
+  function addCardToList(card: Card){
+    dispatch({ type: Actions.ADD_CARD, payload: card })
+    dispatch({ type: Actions.TOGGLE_MODAL, payload: state.isModalOpen })
+  }
+
+  function selectCard(id: number){
+    dispatch({ type: Actions.SELECT_CARD, payload: id })
+  }
+
   return(
     <CartContext.Provider value={{
       state,
@@ -72,6 +83,8 @@ export function CartContextProvider({children}: CartContextProviderProps){
       removeItemFromCart,
       changeItemAmount,
       toggleModal,
+      addCardToList,
+      selectCard
     }}>
       {children}
     </CartContext.Provider>
