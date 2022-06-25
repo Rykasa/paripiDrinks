@@ -10,7 +10,7 @@ export function Cart(){
     if(state){
       getTotal()
     }
-  }, [state.cart])
+  }, [state?.cart])
 
   return(
     <C.Container>

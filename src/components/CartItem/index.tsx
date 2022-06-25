@@ -16,7 +16,7 @@ export function CartItem({ item }: CartItemProps){
     price 
   } = item
 
-  const { removeItemFromCart } = useCart()
+  const { removeItemFromCart, changeItemAmount } = useCart()
 
   return(
     <C.Item>
@@ -35,10 +35,16 @@ export function CartItem({ item }: CartItemProps){
         >
           <X />
         </C.RemoveButton>
-        <C.IncreaseButton>
+        <C.IncreaseButton
+          type="button"
+          onClick={() => changeItemAmount(id, 'increase')}
+        >
           <Plus />
         </C.IncreaseButton>
-        <C.DecreaseButton>
+        <C.DecreaseButton
+          type="button"
+          onClick={() => changeItemAmount(id, 'decrease')}
+        >
           <Minus />
         </C.DecreaseButton>
       </C.ButtonsWrap>

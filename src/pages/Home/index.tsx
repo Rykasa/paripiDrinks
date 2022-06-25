@@ -5,12 +5,12 @@ import { useCart } from "../../hooks/useCartContext"
 import * as C from './styles'
 export function Home(){
   const { state, getTotal } = useCart()
-  
+
   useEffect(() =>{
     if(state){
       getTotal()
     }
-  }, [state.cart])
+  }, [state?.cart])
 
   return(
     <C.Container>

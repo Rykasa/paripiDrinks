@@ -6,12 +6,21 @@ export interface Cocktail{
   amount?: number;
 }
 
+export interface Cart{
+  idDrink: string;
+  strDrink: string;
+  price?: string;
+  strDrinkThumb: string;
+  amount: number;
+}
+
 export enum Actions{
   LOADING = 'LOADING',
   DISPLAY_ITEMS = 'DISPLAY_ITEMS',
   ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART',
   GET_TOTAL = 'GET_TOTAL',
   REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART',
+  CHANGE_AMOUNT = 'CHANGE_AMOUNT'
 }
 
 interface ActionType{
@@ -24,7 +33,7 @@ export interface StateType{
   amount: number;
   total: number;
   cocktails: Cocktail[];
-  cart: Cocktail[];
+  cart: Cart[];
 }
 
 export function reducer(state: StateType, action: ActionType){
@@ -70,6 +79,29 @@ export function reducer(state: StateType, action: ActionType){
         ...state,
         cart: newCart
       }
+    case Actions.CHANGE_AMOUNT:
+      const { id, type } = payload
+      let tempCart = state.cart.map((item) => {
+        if(item.idDrink === payload.id){
+          if(type === 'increase'){
+            return {
+              ...item, amount: item.amount + 1
+            }
+          }
+
+          if(type === 'decrease'){
+            return {
+              ...item, amount: item.amount - 1
+            }
+          }
+        }
+        return item
+      }).filter((item) => item?.amount !== 0)
+      return {
+        ...state,
+        cart: tempCart  
+      }
+      
     default:
       throw new Error('no match')
   }
