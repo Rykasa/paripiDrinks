@@ -24,11 +24,11 @@ export function Payment(){
     }
   }
 
-  // useEffect(() =>{
-  //   if(state?.cart.length < 1){
-  //     navigate('/')
-  //   }
-  // }, [])
+  useEffect(() =>{
+    if(state?.cart.length < 1){
+      navigate('/')
+    }
+  }, [])
 
   return(
     <C.Container>
@@ -43,6 +43,7 @@ export function Payment(){
             slidesPerView={1.15}
             grabCursor
             className="slider"
+            breakpoints={{750: {slidesPerView: 2}, 850: {slidesPerView: 2.15}}}
           >
             <C.CardWrapper>
               {state.cards.map((card, index) =>{

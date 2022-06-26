@@ -3,13 +3,17 @@ import styled from "styled-components";
 export const container = styled.div<{isSelected: boolean}>`
   background-color: #5203da;
   padding: 1rem;
-  width: 70%;
+  width: 18rem;
   border-radius: .25rem;
   border: ${({isSelected}) => isSelected ? '.2rem solid #f4c762' : '.2rem solid #5203da'};
   display: flex;
   flex-direction: column;
   cursor: pointer;
   position: relative;
+
+  @media (min-width: 580px){
+    width: 20rem;
+  }
 `;
 
 export const EditButton = styled.button`

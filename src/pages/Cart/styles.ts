@@ -19,6 +19,10 @@ export const MainCenter = styled.div`
   background-color: #fff;
   padding: 2rem;
   border-radius: .25rem;
+
+  @media (min-width: 700px){
+    padding-inline: 6rem;
+  }
 `;
 
 export const Heading = styled.span`
