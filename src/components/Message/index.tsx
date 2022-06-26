@@ -1,14 +1,17 @@
 import { CheckCircle } from 'phosphor-react'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useCart } from '../../hooks/useCartContext'
 import * as C from './styles'
 
 export function Message(){
-  const { showMessage, state, hideMessage } = useCart()
+  const { hideMessage } = useCart()
+  const navigate = useNavigate()
 
   useEffect(() =>{
     const timeout = setTimeout(() =>{
       hideMessage()
+      navigate('/')
     }, 3000)
     return () => clearTimeout(timeout)
   }, [])
@@ -21,7 +24,7 @@ export function Message(){
           <C.IconWrap>
             <CheckCircle />
           </C.IconWrap>
-          <C.Title>sucessful</C.Title>
+          <C.Title>successful</C.Title>
         </C.Content>
       </C.center>
     </C.Container>

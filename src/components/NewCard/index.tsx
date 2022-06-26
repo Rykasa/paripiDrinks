@@ -2,6 +2,7 @@ import { X } from 'phosphor-react';
 import { useState } from 'react';
 import { useCart } from '../../hooks/useCartContext';
 import { CreditCard } from '../CreditCard'
+import { ErrorMessage } from '../ErrorMessage';
 import * as C from './styles'
 
 const monthsArray = Array.from({ length: 12 }, (x, i) =>{
@@ -12,13 +13,30 @@ const currentYear = new Date().getFullYear()
 const yearsArray = Array.from({ length: 12 }, (x, i) => currentYear + i)
 
 export function NewCard(){
-  const { toggleModal, addCardToList } = useCart()
+  const { toggleModal, addCardToList, state, showError } = useCart()
 
   const [number, setNumber] = useState('')
   const [name, setName] = useState('')
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
   const [cvv ,setCvv] = useState('')
+
+  function handleAddCard(){
+    if(number.trim() === ''){
+      showError("Please enter card number", true)
+    }else if(name.trim() === ''){
+      showError("Please enter cardholder name", true)
+    }else if(!month){
+      showError("Please select a month", true)
+    }else if(!year){
+      showError("Please select a year", true)
+    }else if(cvv.trim() === ''){
+      showError("Please enter cvv", true)
+    }else{
+      // addCardToList({ cardNumber: number, cardholder: name, year, month, cvv, isSelected: false })
+      // showError('', false)
+    }
+  }
 
   return(
     <C.Container>
@@ -30,10 +48,11 @@ export function NewCard(){
           <X />
         </C.CloseButton>
         <C.Card>
-          <CreditCard item={{ cardNumber: number, cardholder: name, month, year, cvv }} />
+          <CreditCard item={{ cardNumber: number, cardholder: name, month, year, cvv, isSelected: false }} />
           
         </C.Card>
         <C.CardInfo>
+          {state.errorAlert.hadError && <ErrorMessage /> }
           <C.Form>
             <C.Label htmlFor="card-number-field">
               <C.LabelTitle>card number</C.LabelTitle>
@@ -42,7 +61,6 @@ export function NewCard(){
                 name="card-number-field" 
                 maxLength={16}
                 value={number}
-                pattern='/^a/'
                 onChange={e => setNumber(e.target.value)}
               />
             </C.Label>
@@ -104,7 +122,7 @@ export function NewCard(){
             </C.DateInfo>
             <C.Button 
               type="button"
-              onClick={() => addCardToList({ cardNumber: number, cardholder: name, year, month, cvv })}
+              onClick={handleAddCard}
             >
               Done</C.Button>
           </C.Form>

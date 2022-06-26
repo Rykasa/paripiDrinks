@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useReducer } from "react";
-import { Actions, Card, Cocktail, reducer, StateType } from "../utils/reducer";
+import { Actions, Card, Cocktail, ErrorType, reducer, StateType } from "../utils/reducer";
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 
 interface CartContextProviderProps{
@@ -7,7 +7,7 @@ interface CartContextProviderProps{
 }
 
 interface CartContextData{
-  state: StateType
+  state: StateType;
   getAllCocktails: () => void
   getTotal: () => void
   toggleModal: () => void
@@ -18,6 +18,7 @@ interface CartContextData{
   selectCard: (id: number) => void;
   showMessage: () => void;
   hideMessage: () => void;
+  showError: (message: string, hadError: boolean) => void
 }
 
 export const CartContext = createContext({} as CartContextData)
@@ -30,7 +31,8 @@ const initialState: StateType = {
   cart: [],
   isModalOpen: false,
   cards: [],
-  isMessageOpen: false
+  isMessageOpen: false,
+  errorAlert: { messageError: '', hadError: false }
 }
 
 export function CartContextProvider({children}: CartContextProviderProps){
@@ -58,10 +60,15 @@ export function CartContextProvider({children}: CartContextProviderProps){
 
   async function getAllCocktails(){
     dispatch({ type: Actions.LOADING })
-    const response = await fetch(url)
-    const data = await response.json()
-    const { drinks } = data
-    dispatch({ type: Actions.DISPLAY_ITEMS, payload: drinks })
+    try{
+      const response = await fetch(url)
+      const data = await response.json()
+      const { drinks } = data
+      dispatch({ type: Actions.DISPLAY_ITEMS, payload: drinks })
+      console.log('works')
+    }catch(error){
+      console.log(error)
+    }
   }
 
   useEffect(() =>{
@@ -86,6 +93,10 @@ export function CartContextProvider({children}: CartContextProviderProps){
 
   }
 
+  function showError(message: string, hadError: boolean){
+    dispatch({ type: Actions.SHOW_ERROR, payload: { message, hadError } })
+  }
+
   return(
     <CartContext.Provider value={{
       state,
@@ -98,7 +109,8 @@ export function CartContextProvider({children}: CartContextProviderProps){
       addCardToList,
       selectCard,
       showMessage,
-      hideMessage
+      hideMessage,
+      showError,
     }}>
       {children}
     </CartContext.Provider>

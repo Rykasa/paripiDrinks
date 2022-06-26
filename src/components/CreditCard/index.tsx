@@ -6,7 +6,7 @@ import * as C from './styles'
 
 interface creditCardProps{
   item: Card;
-  id: number;
+  id?: number;
 }
 
 const CARDS = {
@@ -74,7 +74,7 @@ export function CreditCard({ item, id }: creditCardProps){
   const especificIcon = CardIcon.filter((item) => item.type === especificCardType)
 
   return(
-    <C.container onClick={() => selectCard(id)} isSelected={isSelected}>
+    <C.container onClick={() => selectCard(id!)} isSelected={isSelected}>
       <C.Logo>
         {especificIcon[0]?.icon}
       </C.Logo>

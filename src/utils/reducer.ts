@@ -29,7 +29,8 @@ export enum Actions{
   ADD_CARD = 'ADD_CARD',
   SELECT_CARD = 'SELECT_CARD',
   SHOW_MESSAGE = 'SHOW_MESSAGE',
-  HIDE_MESSAGE = 'HIDE_MESSAGE'
+  HIDE_MESSAGE = 'HIDE_MESSAGE',
+  SHOW_ERROR = 'SHOW_ERROR'
 }
 
 interface ActionType{
@@ -47,6 +48,11 @@ export interface Card{
   isSelected: boolean;
 }
 
+export interface ErrorType{
+  messageError: string;
+  hadError: boolean;
+}
+
 export interface StateType{
   isLoading: boolean;
   amount: number;
@@ -56,6 +62,7 @@ export interface StateType{
   isModalOpen: boolean;
   cards: Card[];
   isMessageOpen: boolean;
+  errorAlert: ErrorType;
 }
 
 export function reducer(state: StateType, action: ActionType){
@@ -159,15 +166,29 @@ export function reducer(state: StateType, action: ActionType){
       }
 
     case Actions.SHOW_MESSAGE:
-      return {
-        ...state,
-        isMessageOpen: state.isMessageOpen = true
+      if(state.cards.length < 1){
+        return { ...state }
+      }else{
+        return {
+          ...state,
+          isMessageOpen: state.isMessageOpen = true
+        }
       }
 
     case Actions.HIDE_MESSAGE:
       return {
         ...state,
         isMessageOpen: state.isMessageOpen = false
+      }
+
+    case Actions.SHOW_ERROR:
+      return {
+        ...state,
+        errorAlert:  {
+          ...state.errorAlert, 
+          messageError: payload.message, 
+          hadError: payload.hadError
+        }
       }
     
     default:

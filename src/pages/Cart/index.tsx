@@ -1,17 +1,26 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CartItem } from '../../components/CartItem'
 import { useCart } from '../../hooks/useCartContext'
 import * as C from './styles'
 
 export function Cart(){
   const { state, getTotal } = useCart()
+  const navigate = useNavigate()
 
   useEffect(() =>{
     if(state){
       getTotal()
     }
   }, [state?.cart])
+
+  function handleClick(){
+    if(state.cart.length < 1){
+      return
+    }else{
+      navigate('/')
+    }
+  }
 
   return(
     <C.Container>
@@ -38,9 +47,11 @@ export function Cart(){
               <C.InfoTotal><span>$</span> 0</C.InfoTotal>
             )}
           </C.InfoDiv>
-          <Link to='/payment'>
-            <C.Button>proceed to payment</C.Button>
-          </Link>
+          <C.Button
+            type="button"
+            onClick={handleClick}
+          >
+            proceed to payment</C.Button>
         </C.MainCenter>
       </C.Main>
     </C.Container>
