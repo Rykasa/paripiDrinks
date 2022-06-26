@@ -1,5 +1,5 @@
 import { X } from 'phosphor-react';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useCart } from '../../hooks/useCartContext';
 import { Card } from '../../utils/reducer';
 import { CreditCard } from '../CreditCard'
@@ -18,7 +18,14 @@ interface NewCardProps{
 }
 
 export function NewCard({item}: NewCardProps){
-  const { toggleModal, addCardToList, state, showError, getEditedCardList } = useCart()
+  const { 
+    toggleModal, 
+    addCardToList, 
+    state, 
+    showError, 
+    getEditedCardList, 
+    deleteCardFromList 
+  } = useCart()
 
   const [number, setNumber] = useState(`${state?.singleCard.isSelected ? item?.cardNumber : ''}`)
   const [name, setName] = useState(`${state?.singleCard.isSelected ? item?.cardholder : ''}`)
@@ -41,7 +48,7 @@ export function NewCard({item}: NewCardProps){
       showError("Card number invalid", true)
     }else if(name.trim().length < 3){
       showError("cardholder name must have atleast 3 digits", true)
-    }else if(!name.split(' ').join('').toLowerCase().match('[a-z]+'.repeat(name.trim().length - 1))){
+    }else if(!name.split(' ').join('').toLowerCase().match('[a-z]+'.repeat(name.split(' ').join('').length))){
       showError("Cardholder name invalid", true)
     }else if(!cvv.match(('[0-9]+'.repeat(3)))){  
       showError("CVV invalid", true)
@@ -74,6 +81,10 @@ export function NewCard({item}: NewCardProps){
     toggleModal()
     showError('', false)
   }
+
+  useEffect(() =>{
+    showError('', false)
+  }, [])
 
   return(
     <C.Container>
@@ -157,11 +168,26 @@ export function NewCard({item}: NewCardProps){
                 />
               </C.Label>
             </C.DateInfo>
-            <C.Button 
-              type="button"
-              onClick={handleAddCard}
-            >
-              Done</C.Button>
+            {state?.singleCard.isSelected ? (
+              <C.ButtonsWrap>
+                <C.DeleteButton
+                  type="button"
+                  onClick={() => deleteCardFromList(item?.id!)}
+                >
+                  delete card</C.DeleteButton>
+                <C.Button 
+                  type="button"
+                  onClick={handleAddCard}
+                >
+                  Save</C.Button>
+              </C.ButtonsWrap>
+            ) : (
+              <C.Button 
+                type="button"
+                onClick={handleAddCard}
+              >
+                Done</C.Button>
+            )}
           </C.Form>
         </C.CardInfo>
       </C.Center>

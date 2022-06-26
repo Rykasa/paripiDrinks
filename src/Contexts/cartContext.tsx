@@ -21,6 +21,7 @@ interface CartContextData{
   showError: (message: string, hadError: boolean) => void
   editCard: (item: Card) => void
   getEditedCardList: (cardList: Card[]) => void
+  deleteCardFromList: (id: number) => void
 }
 
 export const CartContext = createContext({} as CartContextData)
@@ -112,6 +113,11 @@ export function CartContextProvider({children}: CartContextProviderProps){
     dispatch({ type: Actions.TOGGLE_MODAL, payload: state.isModalOpen })
   }
 
+  function deleteCardFromList(id: number){
+    dispatch({ type: Actions.DELETE_CARD, payload: id })
+    dispatch({ type: Actions.TOGGLE_MODAL, payload: state.isModalOpen })
+  }
+
   return(
     <CartContext.Provider value={{
       state,
@@ -127,7 +133,8 @@ export function CartContextProvider({children}: CartContextProviderProps){
       hideMessage,
       showError,
       editCard,
-      getEditedCardList
+      getEditedCardList,
+      deleteCardFromList
     }}>
       {children}
     </CartContext.Provider>

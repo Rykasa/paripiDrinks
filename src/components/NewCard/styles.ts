@@ -114,7 +114,7 @@ export const Button = styled.button`
   background-color: #5203da;
   border-color: #5203da;
   border-radius: .25rem;
-  padding: .25rem .1rem;
+  padding: .25rem 1rem;
   text-transform: uppercase;
   color: #fff;
   font-weight: bold;
@@ -127,4 +127,14 @@ export const Button = styled.button`
     background-color: #fff;
     color: #5203da;
   }
+`;
+
+export const ButtonsWrap = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const DeleteButton = styled(Button)`
 `;

@@ -33,7 +33,8 @@ export enum Actions{
   HIDE_MESSAGE = 'HIDE_MESSAGE',
   SHOW_ERROR = 'SHOW_ERROR',
   EDIT_CARD = 'EDIT_CARD',
-  EDITED_CARDS = 'EDITED_CARDS'
+  EDITED_CARDS = 'EDITED_CARDS',
+  DELETE_CARD = 'DELETE_CARD'
 }
 
 interface ActionType{
@@ -218,6 +219,18 @@ export function reducer(state: StateType, action: ActionType){
       return {
         ...state,
         cards: payload
+      }
+
+    case Actions.DELETE_CARD:
+      const newCardList = state.cards.filter((card, index) =>{
+        if(index !== payload){
+          return card
+        }
+      })
+      return {
+        ...state,
+        cards: newCardList,
+        isModalOpen: false
       }
     
     default:
