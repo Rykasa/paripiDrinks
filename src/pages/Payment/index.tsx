@@ -32,7 +32,7 @@ export function Payment(){
 
   return(
     <C.Container>
-      {state?.isModalOpen && <NewCard />}
+      {state?.isModalOpen && <NewCard item={state?.singleCard} />}
       {state?.isMessageOpen && <Message />}
       <C.Heading>Payment</C.Heading>
       <C.Center>
@@ -69,7 +69,7 @@ export function Payment(){
         <C.PayButton
           type="button"
           onClick={handleShowMessage}
-          disabled={state.cards.length < 1}
+          disabled={state?.cards.length < 1}
         >
           Pay</C.PayButton>
         <ErrorMessage />

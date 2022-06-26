@@ -31,7 +31,9 @@ export enum Actions{
   SELECT_CARD = 'SELECT_CARD',
   SHOW_MESSAGE = 'SHOW_MESSAGE',
   HIDE_MESSAGE = 'HIDE_MESSAGE',
-  SHOW_ERROR = 'SHOW_ERROR'
+  SHOW_ERROR = 'SHOW_ERROR',
+  EDIT_CARD = 'EDIT_CARD',
+  EDITED_CARDS = 'EDITED_CARDS'
 }
 
 interface ActionType{
@@ -47,6 +49,7 @@ export interface Card{
   year: string;
   cvv: string;
   isSelected: boolean;
+  id?: number | undefined
 }
 
 export interface ErrorType{
@@ -65,6 +68,7 @@ export interface StateType{
   cards: Card[];
   isMessageOpen: boolean;
   errorAlert: ErrorType;
+  singleCard: Card;
 }
 
 export function reducer(state: StateType, action: ActionType){
@@ -81,7 +85,11 @@ export function reducer(state: StateType, action: ActionType){
         isLoading: true,
       }
     case Actions.TOGGLE_MODAL:
-      return { ...state, isModalOpen: !payload }
+      return { 
+        ...state, 
+        isModalOpen: !payload,
+        singleCard: {...state.singleCard, isSelected: false  }
+      }
     case Actions.ADD_ITEM_TO_CART:
       const duplicatedItem = state.cart.find((item) => item.idDrink === payload.idDrink )
       if(duplicatedItem){
@@ -198,6 +206,18 @@ export function reducer(state: StateType, action: ActionType){
         ...state,
         isLoading: false,
         haveFailed: true
+      }
+
+    case Actions.EDIT_CARD:
+      return {
+        ...state,
+        singleCard: {...payload, isSelected: true},
+      }
+    
+    case Actions.EDITED_CARDS:
+      return {
+        ...state,
+        cards: payload
       }
     
     default:

@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { FaCcAmex, FaCcDinersClub, FaCcDiscover, FaCcJcb, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
+import { FaCcAmex, FaCcDinersClub, FaCcDiscover, FaCcJcb, FaCcMastercard, FaCcVisa, FaEdit, FaRegEdit } from 'react-icons/fa'
 import { useCart } from '../../hooks/useCartContext';
 import { Card } from '../../utils/reducer'
 import * as C from './styles'
@@ -54,7 +54,7 @@ const CardIcon: cardtype[] = [
 export function CreditCard({ item, id }: creditCardProps){
   const { cardNumber, cardholder, cvv, month, year, isSelected } = item
   const [especificCardType, setEspecificCardType] = useState('')
-  const { selectCard, state } = useCart()
+  const { selectCard, state, toggleModal, editCard } = useCart()
 
    function checkCardType(cardNumber: string){
     let re
@@ -75,6 +75,14 @@ export function CreditCard({ item, id }: creditCardProps){
 
   return(
     <C.container onClick={() => selectCard(id!)} isSelected={isSelected}>
+      {isSelected && (
+        <C.EditButton
+          type="button"
+          onClick={() => editCard({...item, id: id})}
+        >
+          <FaRegEdit />
+        </C.EditButton>
+      )}
       <C.Logo>
         {especificIcon[0]?.icon}
       </C.Logo>

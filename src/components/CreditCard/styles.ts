@@ -9,7 +9,25 @@ export const container = styled.div<{isSelected: boolean}>`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  position: relative;
 `;
+
+export const EditButton = styled.button`
+  position: absolute;
+  top: .25rem;
+  right: .25rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+
+  &:hover{
+    color: #f4c762;
+  }
+`;
+
 
 export const Logo = styled.div`
   font-size: 2rem;

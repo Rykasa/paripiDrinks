@@ -19,6 +19,8 @@ interface CartContextData{
   showMessage: () => void;
   hideMessage: () => void;
   showError: (message: string, hadError: boolean) => void
+  editCard: (item: Card) => void
+  getEditedCardList: (cardList: Card[]) => void
 }
 
 export const CartContext = createContext({} as CartContextData)
@@ -33,7 +35,8 @@ const initialState: StateType = {
   isModalOpen: false,
   cards: [],
   isMessageOpen: false,
-  errorAlert: { messageError: '', hadError: false }
+  errorAlert: { messageError: '', hadError: false },
+  singleCard: { cardNumber: '', cardholder: '', month: '', year: '', cvv: '', isSelected: false }
 }
 
 export function CartContextProvider({children}: CartContextProviderProps){
@@ -99,6 +102,16 @@ export function CartContextProvider({children}: CartContextProviderProps){
     dispatch({ type: Actions.SHOW_ERROR, payload: { message, hadError } })
   }
 
+  function editCard(item: Card){
+    dispatch({ type: Actions.TOGGLE_MODAL, payload: state.isModalOpen })
+    dispatch({ type: Actions.EDIT_CARD, payload: {...item}})
+  }
+
+  function getEditedCardList(cardList: Card[]){
+    dispatch({ type: Actions.EDITED_CARDS, payload: cardList})
+    dispatch({ type: Actions.TOGGLE_MODAL, payload: state.isModalOpen })
+  }
+
   return(
     <CartContext.Provider value={{
       state,
@@ -113,6 +126,8 @@ export function CartContextProvider({children}: CartContextProviderProps){
       showMessage,
       hideMessage,
       showError,
+      editCard,
+      getEditedCardList
     }}>
       {children}
     </CartContext.Provider>

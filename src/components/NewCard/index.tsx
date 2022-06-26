@@ -1,6 +1,7 @@
 import { X } from 'phosphor-react';
 import { ChangeEvent, useState } from 'react';
 import { useCart } from '../../hooks/useCartContext';
+import { Card } from '../../utils/reducer';
 import { CreditCard } from '../CreditCard'
 import { ErrorMessage } from '../ErrorMessage';
 import * as C from './styles'
@@ -12,16 +13,19 @@ const monthsArray = Array.from({ length: 12 }, (x, i) =>{
 const currentYear = new Date().getFullYear()
 const yearsArray = Array.from({ length: 12 }, (x, i) => currentYear + i)
 
-export function NewCard(){
-  const { toggleModal, addCardToList, state, showError } = useCart()
+interface NewCardProps{
+  item?: Card
+}
 
-  const [number, setNumber] = useState('')
-  const [name, setName] = useState('')
-  const [month, setMonth] = useState('')
-  const [year, setYear] = useState('')
-  const [cvv ,setCvv] = useState('')
+export function NewCard({item}: NewCardProps){
+  const { toggleModal, addCardToList, state, showError, getEditedCardList } = useCart()
 
-  const re = new RegExp(`[a-z]`)
+  const [number, setNumber] = useState(`${state?.singleCard.isSelected ? item?.cardNumber : ''}`)
+  const [name, setName] = useState(`${state?.singleCard.isSelected ? item?.cardholder : ''}`)
+  const [month, setMonth] = useState(`${state?.singleCard.isSelected ? item?.month : ''}`)
+  const [year, setYear] = useState(`${state?.singleCard.isSelected ? item?.year : ''}`)
+  const [cvv ,setCvv] = useState(`${state?.singleCard.isSelected ? item?.cvv : '' }`)
+
   function handleAddCard(){
     if(number.trim().length === 0){
       showError("Please enter card number", true)
@@ -42,8 +46,27 @@ export function NewCard(){
     }else if(!cvv.match(('[0-9]+'.repeat(3)))){  
       showError("CVV invalid", true)
     }else{
-      addCardToList({ cardNumber: number, cardholder: name, year, month, cvv, isSelected: false })
-      showError('', false)
+      if(state?.singleCard.isSelected){
+        const tempCardList = state.cards.map((card, index) =>{
+          if(item?.id === index){
+            return {
+              ...item,
+              cardholder: name,
+              cardNumber: number,
+              cvv,
+              month,
+              year
+            }
+          }
+          return card
+        })
+
+        getEditedCardList(tempCardList)
+        showError('', false)
+      }else{
+        addCardToList({ cardNumber: number, cardholder: name, year, month, cvv, isSelected: false })
+        showError('', false)
+      }
     }
   }
 
