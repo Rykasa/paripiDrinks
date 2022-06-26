@@ -15,7 +15,9 @@ interface CartContextData{
   removeItemFromCart: (id: string) => void
   changeItemAmount: (id: string, type: string) => void
   addCardToList: (card: Card) => void
-  selectCard: (id: number) => void
+  selectCard: (id: number) => void;
+  showMessage: () => void;
+  hideMessage: () => void;
 }
 
 export const CartContext = createContext({} as CartContextData)
@@ -28,6 +30,7 @@ const initialState: StateType = {
   cart: [],
   isModalOpen: false,
   cards: [],
+  isMessageOpen: false
 }
 
 export function CartContextProvider({children}: CartContextProviderProps){
@@ -74,6 +77,15 @@ export function CartContextProvider({children}: CartContextProviderProps){
     dispatch({ type: Actions.SELECT_CARD, payload: id })
   }
 
+  function showMessage(){
+    dispatch({ type: Actions.SHOW_MESSAGE })
+  }
+
+  function hideMessage(){
+    dispatch({ type: Actions.HIDE_MESSAGE })
+
+  }
+
   return(
     <CartContext.Provider value={{
       state,
@@ -84,7 +96,9 @@ export function CartContextProvider({children}: CartContextProviderProps){
       changeItemAmount,
       toggleModal,
       addCardToList,
-      selectCard
+      selectCard,
+      showMessage,
+      hideMessage
     }}>
       {children}
     </CartContext.Provider>

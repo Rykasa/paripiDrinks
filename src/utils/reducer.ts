@@ -27,7 +27,9 @@ export enum Actions{
   CHECK_DUPLICATE = 'CHECK_DUPLICATE',
   TOGGLE_MODAL = 'TOGGLE_MODAL',
   ADD_CARD = 'ADD_CARD',
-  SELECT_CARD = 'SELECT_CARD'
+  SELECT_CARD = 'SELECT_CARD',
+  SHOW_MESSAGE = 'SHOW_MESSAGE',
+  HIDE_MESSAGE = 'HIDE_MESSAGE'
 }
 
 interface ActionType{
@@ -53,6 +55,7 @@ export interface StateType{
   cart: Cart[];
   isModalOpen: boolean;
   cards: Card[];
+  isMessageOpen: boolean;
 }
 
 export function reducer(state: StateType, action: ActionType){
@@ -144,7 +147,6 @@ export function reducer(state: StateType, action: ActionType){
       }
       
     case Actions.SELECT_CARD:
-      console.log('works')
       const tempCards = state.cards.map((card, index) =>{
         if(index === payload){
           return {...card, isSelected: card.isSelected = true }
@@ -155,6 +157,19 @@ export function reducer(state: StateType, action: ActionType){
         ...state,
         cards: tempCards
       }
+
+    case Actions.SHOW_MESSAGE:
+      return {
+        ...state,
+        isMessageOpen: state.isMessageOpen = true
+      }
+
+    case Actions.HIDE_MESSAGE:
+      return {
+        ...state,
+        isMessageOpen: state.isMessageOpen = false
+      }
+    
     default:
       throw new Error('no match')
   }
