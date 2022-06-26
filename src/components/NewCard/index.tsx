@@ -1,5 +1,5 @@
 import { X } from 'phosphor-react';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useCart } from '../../hooks/useCartContext';
 import { CreditCard } from '../CreditCard'
 import { ErrorMessage } from '../ErrorMessage';
@@ -22,9 +22,9 @@ export function NewCard(){
   const [cvv ,setCvv] = useState('')
 
   function handleAddCard(){
-    if(number.trim() === ''){
+    if(number.trim().length === 0){
       showError("Please enter card number", true)
-    }else if(name.trim() === ''){
+    }else if(name.trim().length === 0){
       showError("Please enter cardholder name", true)
     }else if(!month){
       showError("Please select a month", true)
@@ -32,9 +32,13 @@ export function NewCard(){
       showError("Please select a year", true)
     }else if(cvv.trim() === ''){
       showError("Please enter cvv", true)
+    }else if(!number.match(('[0-9]+'.repeat(16)))){
+      showError("Card number invalid", true)
+    }else if(name.trim().length < 3){
+      showError("cardholder name must have atleast 3 digits", true)
     }else{
-      // addCardToList({ cardNumber: number, cardholder: name, year, month, cvv, isSelected: false })
-      // showError('', false)
+      addCardToList({ cardNumber: number, cardholder: name, year, month, cvv, isSelected: false })
+      showError('', false)
     }
   }
 
