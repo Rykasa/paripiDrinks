@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { CartItem } from '../../components/CartItem'
 import { useCart } from '../../hooks/useCartContext'
 import * as C from './styles'
@@ -50,6 +50,7 @@ export function Cart(){
           <C.Button
             type="button"
             onClick={handleClick}
+            disabled={state?.cart.length < 1}
           >
             proceed to payment</C.Button>
         </C.MainCenter>

@@ -28,6 +28,9 @@ export function Home(){
                 )
               })
             )}
+            {state?.haveFailed && !state?.isLoading && (
+              <C.ErrorMessage>Something went wrong. Please try Later.</C.ErrorMessage>
+            )}
           </C.CocktailsDiv>
         </C.MainCenter>
       </C.Main>

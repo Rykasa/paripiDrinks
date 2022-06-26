@@ -19,6 +19,7 @@ export interface Cart{
 
 export enum Actions{
   LOADING = 'LOADING',
+  REQUEST_FAILED = 'REQUEST_FAILED',
   DISPLAY_ITEMS = 'DISPLAY_ITEMS',
   ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART',
   GET_TOTAL = 'GET_TOTAL',
@@ -55,6 +56,7 @@ export interface ErrorType{
 
 export interface StateType{
   isLoading: boolean;
+  haveFailed: boolean;
   amount: number;
   total: number;
   cocktails: Cocktail[];
@@ -189,6 +191,13 @@ export function reducer(state: StateType, action: ActionType){
           messageError: payload.message, 
           hadError: payload.hadError
         }
+      }
+
+    case Actions.REQUEST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        haveFailed: true
       }
     
     default:

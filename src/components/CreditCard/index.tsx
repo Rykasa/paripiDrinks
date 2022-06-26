@@ -82,7 +82,7 @@ export function CreditCard({ item, id }: creditCardProps){
         {cardNumber.split('', 4).slice(0, 4).join('') + ' ' + cardNumber.split('', 8).slice(4, 8).join('') + ' ' + cardNumber.split('', 12).slice(8, 12).join('') + ' ' + cardNumber.split('', 16).slice(12, 16).join('') }
       </C.Number>
       <C.InfoDiv>
-        <C.Holder>{cardholder.split(' ').splice(0, 2).join(' ')}</C.Holder>
+        <C.Holder>{cardholder.toLowerCase().split(' ').splice(0, 2).join(' ')}</C.Holder>
         <C.ExpiryDate>{month && month + '/'}{year.slice(2, 4)}</C.ExpiryDate>
       </C.InfoDiv>
     </C.container>

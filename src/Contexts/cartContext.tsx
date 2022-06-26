@@ -25,6 +25,7 @@ export const CartContext = createContext({} as CartContextData)
 
 const initialState: StateType = {
   isLoading: false,
+  haveFailed: false,
   amount: 0,
   total: 0,
   cocktails: [],
@@ -68,6 +69,7 @@ export function CartContextProvider({children}: CartContextProviderProps){
       console.log('works')
     }catch(error){
       console.log(error)
+      dispatch({ type: Actions.REQUEST_FAILED })
     }
   }
 

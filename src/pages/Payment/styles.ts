@@ -59,12 +59,13 @@ export const PayButton = styled.button`
   display: block;
   margin: auto;
   margin-top: 2rem;
+  margin-bottom: 1rem;
   padding: .25rem 1rem;
   border-radius: .25rem;
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: .1rem;
-  border-color: #5203da;
+  border: .1rem solid #5203da;
   background: #5203da;
   color: #fff;
   cursor: pointer;
@@ -72,6 +73,12 @@ export const PayButton = styled.button`
 
   &:hover{
     box-shadow: 0 0 0 1rem inset #272727;
+  }
+
+  &:disabled{
+    box-shadow: none;
+    opacity: .8;
+    cursor: default;
   }
 `;
 

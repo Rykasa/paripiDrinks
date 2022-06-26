@@ -25,10 +25,11 @@ export const InfoDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  `;
+`;
 
 export const Holder = styled.span`
   font-size: .875rem;
+  text-transform: capitalize;
 `;
 
 export const ExpiryDate = styled.span`

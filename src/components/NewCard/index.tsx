@@ -21,6 +21,7 @@ export function NewCard(){
   const [year, setYear] = useState('')
   const [cvv ,setCvv] = useState('')
 
+  const re = new RegExp(`[a-z]`)
   function handleAddCard(){
     if(number.trim().length === 0){
       showError("Please enter card number", true)
@@ -36,10 +37,19 @@ export function NewCard(){
       showError("Card number invalid", true)
     }else if(name.trim().length < 3){
       showError("cardholder name must have atleast 3 digits", true)
+    }else if(!name.split(' ').join('').toLowerCase().match('[a-z]+'.repeat(name.trim().length - 1))){
+      showError("Cardholder name invalid", true)
+    }else if(!cvv.match(('[0-9]+'.repeat(3)))){  
+      showError("CVV invalid", true)
     }else{
       addCardToList({ cardNumber: number, cardholder: name, year, month, cvv, isSelected: false })
       showError('', false)
     }
+  }
+
+  function handleCloseModal(){
+    toggleModal()
+    showError('', false)
   }
 
   return(
@@ -47,7 +57,7 @@ export function NewCard(){
       <C.Center>
         <C.CloseButton
           type="button"
-          onClick={toggleModal}
+          onClick={handleCloseModal}
         >
           <X />
         </C.CloseButton>

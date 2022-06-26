@@ -47,3 +47,11 @@ export const CocktailsDiv = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: 1rem;
 `;
+
+export const ErrorMessage = styled.span`
+  display: block;
+  text-align: center;
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 1.25rem;
+`;

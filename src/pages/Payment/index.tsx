@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Plus } from "phosphor-react";
 import { CreditCard } from "../../components/CreditCard";
 import * as C from './styles'
@@ -6,9 +7,28 @@ import 'swiper/css'
 import { NewCard } from "../../components/NewCard";
 import { useCart } from "../../hooks/useCartContext";
 import { Message } from "../../components/Message";
+import { ErrorMessage } from "../../components/ErrorMessage";
+import { useNavigate } from "react-router-dom";
 
 export function Payment(){
-  const { state, toggleModal, showMessage  } = useCart()
+  const { state, toggleModal, showMessage, showError  } = useCart()
+  const navigate = useNavigate()
+
+  function handleShowMessage(){
+    const hasCardSelected = state.cards.find((card) => card.isSelected === true )
+    if(hasCardSelected){
+      showMessage()
+      showError('', false)
+    }else{
+      showError('Select a card', true)
+    }
+  }
+
+  // useEffect(() =>{
+  //   if(state?.cart.length < 1){
+  //     navigate('/')
+  //   }
+  // }, [])
 
   return(
     <C.Container>
@@ -48,9 +68,11 @@ export function Payment(){
         </C.AddButton>
         <C.PayButton
           type="button"
-          onClick={showMessage}
+          onClick={handleShowMessage}
+          disabled={state.cards.length < 1}
         >
           Pay</C.PayButton>
+        <ErrorMessage />
       </C.Center>
     </C.Container>
   )

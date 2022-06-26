@@ -86,4 +86,11 @@ export const Button = styled.button`
     box-shadow: 0 0 0 1rem inset #fff;
     color: #5203da;
   }
+
+  &:disabled{
+    box-shadow: none;
+    color: #fff;
+    opacity: .8;
+    cursor: default;
+  }
 `;
