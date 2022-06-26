@@ -40,6 +40,10 @@ export const Logo = styled.div`
 export const Number = styled.strong`
   letter-spacing: .1rem;
   height: 1rem;
+
+  @media (max-width: 500px){
+    font-size: 0.875rem;
+  } 
 `;
 
 export const InfoDiv = styled.div`
@@ -57,4 +61,8 @@ export const Holder = styled.span`
 export const ExpiryDate = styled.span`
   width: 2.5rem;
   height: 1.5rem;  
+
+  @media (max-width: 500px){
+    font-size: 0.875rem;
+  }
 `;

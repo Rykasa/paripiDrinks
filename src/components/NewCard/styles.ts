@@ -62,6 +62,10 @@ export const Form = styled.form`
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
+  
+  @media (max-width: 500px){
+    padding: 1rem;
+  }
 `;
 
 export const Label = styled.label`
@@ -95,6 +99,11 @@ export const Input = styled.input`
 export const DateInfo = styled.div`
   display: flex;
   gap: 8rem;
+  
+  @media (max-width: 500px){
+    gap: 1rem;
+    flex-direction: column;
+  }
 `;
 
 export const Select = styled.select`
@@ -103,6 +112,10 @@ export const Select = styled.select`
   border: .1rem solid #f4c762;
   outline-color: #5203da;
   border-radius: .25rem;
+
+  @media (max-width: 500px){
+    width: 100%;
+  }
 `;
 
 export const ExpiryDateWrap = styled.div`

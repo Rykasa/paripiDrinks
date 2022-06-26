@@ -24,11 +24,11 @@ export function Payment(){
     }
   }
 
-  useEffect(() =>{
-    if(state?.cart.length < 1){
-      navigate('/')
-    }
-  }, [])
+  // useEffect(() =>{
+  //   if(state?.cart.length < 1){
+  //     navigate('/')
+  //   }
+  // }, [])
 
   return(
     <C.Container>
