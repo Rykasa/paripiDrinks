@@ -1,4 +1,4 @@
-# paripiDrinks
+# Paripi Drinks
 <img src="src/assets/cover.png" alt="paripi-drinks-cover" />
 
 ## 💻 Project
