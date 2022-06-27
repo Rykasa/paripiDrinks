@@ -24,6 +24,7 @@ export enum Actions{
   ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART',
   GET_TOTAL = 'GET_TOTAL',
   REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART',
+  CLEAR_CART = 'CLEAR_CART',
   CHANGE_AMOUNT = 'CHANGE_AMOUNT',
   CHECK_DUPLICATE = 'CHECK_DUPLICATE',
   TOGGLE_MODAL = 'TOGGLE_MODAL',
@@ -135,6 +136,13 @@ export function reducer(state: StateType, action: ActionType){
         ...state,
         cart: newCart
       }
+
+    case Actions.CLEAR_CART:
+      return {
+        ...state,
+        cart: []
+      }
+
     case Actions.CHANGE_AMOUNT:
       const { id, type } = payload
       let tempCart = state.cart.map((item) => {

@@ -26,7 +26,7 @@ export function CartItem({ item }: CartItemProps){
       <C.ItemInfo>
         <C.Title>{title}</C.Title>
         <C.Amount>{amount}</C.Amount>
-        <C.Price>$ {price}</C.Price>
+        <C.Price>$ {price }</C.Price>
       </C.ItemInfo>
       <C.ButtonsWrap>
         <C.RemoveButton

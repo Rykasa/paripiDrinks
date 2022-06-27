@@ -18,7 +18,7 @@ export function Cart(){
     if(state.cart.length < 1){
       return
     }else{
-      navigate('/')
+      navigate('/payment')
     }
   }
 
@@ -36,7 +36,7 @@ export function Cart(){
                 )
               })
             ) : (
-              <C.EmptyTitle>Empty list</C.EmptyTitle>
+              <C.EmptyTitle>Your cart is empty</C.EmptyTitle>
             )}
           </C.List>
           <C.InfoDiv>

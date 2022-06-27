@@ -9,6 +9,10 @@ export const Item = styled.div`
   height: 4rem;
   gap: .5rem;
   font-size: 0.875rem;
+
+  @media (min-width: 700px){
+    font-size: 1rem;
+  }
 `;
 
 export const ImageWrap = styled.div`
@@ -18,6 +22,10 @@ export const ImageWrap = styled.div`
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   overflow: hidden;
+
+  @media (min-width: 700px){
+    flex: 1;
+  }
 `;
 
 export const Image = styled.img`
@@ -42,6 +50,10 @@ export const Title = styled.span`
 export const Amount = styled.span`
   font-size: .75rem;
   color: #f4c762;
+  
+  @media (min-width: 700px){
+    font-size: .875rem;
+  }
 `;
 
 export const Price = styled.span`

@@ -20,11 +20,11 @@ export function Message(){
     <C.Container>
       <C.center>
         <C.Content>
-          <C.Title>transação</C.Title>
+          <C.Title>Payment</C.Title>
           <C.IconWrap>
             <CheckCircle />
           </C.IconWrap>
-          <C.Title>successful</C.Title>
+          <C.Title>Successful</C.Title>
         </C.Content>
       </C.center>
     </C.Container>

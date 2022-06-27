@@ -11,7 +11,7 @@ import { ErrorMessage } from "../../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 export function Payment(){
-  const { state, toggleModal, showMessage, showError  } = useCart()
+  const { state, toggleModal, showMessage, showError, clearCart  } = useCart()
   const navigate = useNavigate()
 
   function handleShowMessage(){
@@ -19,16 +19,17 @@ export function Payment(){
     if(hasCardSelected){
       showMessage()
       showError('', false)
+      clearCart()
     }else{
       showError('Select a card', true)
     }
   }
 
-  // useEffect(() =>{
-  //   if(state?.cart.length < 1){
-  //     navigate('/')
-  //   }
-  // }, [])
+  useEffect(() =>{
+    if(state?.cart.length < 1){
+      navigate('/')
+    }
+  }, [])
 
   return(
     <C.Container>

@@ -13,6 +13,7 @@ interface CartContextData{
   toggleModal: () => void
   addItemToCart: (item: Cocktail) => void
   removeItemFromCart: (id: string) => void
+  clearCart: () => void
   changeItemAmount: (id: string, type: string) => void
   addCardToList: (card: Card) => void
   selectCard: (id: number) => void;
@@ -55,6 +56,10 @@ export function CartContextProvider({children}: CartContextProviderProps){
     dispatch({ type: Actions.REMOVE_ITEM_FROM_CART, payload: id })
   }
 
+  function clearCart(){
+    dispatch({ type: Actions.CLEAR_CART })
+  }
+
   function changeItemAmount(id: string, type: string){
     dispatch({ type: Actions.CHANGE_AMOUNT, payload: { id, type } })
   }
@@ -70,7 +75,6 @@ export function CartContextProvider({children}: CartContextProviderProps){
       const data = await response.json()
       const { drinks } = data
       dispatch({ type: Actions.DISPLAY_ITEMS, payload: drinks })
-      console.log('works')
     }catch(error){
       console.log(error)
       dispatch({ type: Actions.REQUEST_FAILED })
@@ -125,6 +129,7 @@ export function CartContextProvider({children}: CartContextProviderProps){
       getTotal,
       addItemToCart,
       removeItemFromCart,
+      clearCart,
       changeItemAmount,
       toggleModal,
       addCardToList,
